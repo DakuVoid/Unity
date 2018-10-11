@@ -6,15 +6,15 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Renderer))]
 public class ControlleurCouleur : MonoBehaviour
 {
-    Renderer ImageAChanger { get; set; }
+    Renderer Renderer { get; set; }
 
-	void Start ()
+	void Awake ()
     {
-        ImageAChanger = GetComponent<Renderer>();   		
+        Renderer = GetComponent<Renderer>();   		
 	}
 
     public void ChangerCouleur(ref Color nouvelleCouleur)
     {
-        ImageAChanger.material.color = nouvelleCouleur;
+        Renderer.material.color = nouvelleCouleur;
     }
 }

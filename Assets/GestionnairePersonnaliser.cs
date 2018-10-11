@@ -18,8 +18,8 @@ public class GestionnairePersonnaliser : MonoBehaviour
 
         DdlCouleur = GetComponentInChildren<Dropdown>();
 
-        //CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
-        //DdlCouleur.onValueChanged.AddListener(optionSel => CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]));
+        CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
+        DdlCouleur.onValueChanged.AddListener(optionSel => CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]));
     }
     private void InitCube()
     {
@@ -36,16 +36,16 @@ public class GestionnairePersonnaliser : MonoBehaviour
     void Update()
     {
         GestionRotationDuCube();
-        GestionCouleurDuCube();
+        //GestionCouleurDuCube();
     }
     private void GestionRotationDuCube()
     {
         float rotation = Input.GetAxis("Horizontal");
         Cube.transform.Rotate(new Vector3(0, rotation, 0));
     }
-    private void GestionCouleurDuCube()
-    {
-        if (DdlCouleur != null)
-            ControlleurCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
-    }
+    //private void GestionCouleurDuCube()
+    //{
+    //    if (DdlCouleur != null)
+    //        CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
+    //}
 }

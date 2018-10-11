@@ -6,27 +6,23 @@ using UnityEngine.UI;
 
 public class GestionnairePersonnaliser : MonoBehaviour
 {
-    GameObject Cube { get; set; }
-    ControlleurCouleur ControleurCouleur { get; set; }
+    GameObject cube { get; set; }
+    ControllerColor controleurCouleur { get; set; }
     Dropdown DdlCouleur { get; set; }
     Button boutonMenu { get; set; }
-    Color[] CouleurCube = new Color[]{ Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
+    Color[] CouleurCube { get; set; } = { Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
     void Start ()
     {
         InitCube();
         InitBouton();
-
-        DdlCouleur = GetComponentInChildren<Dropdown>();
-
-        ControleurCouleur.ChangerCouleur(CouleurCube[DdlCouleur.value]);
-        DdlCouleur.onValueChanged.AddListener(optionSel => ControleurCouleur.ChangerCouleur(CouleurCube[optionSel]));
     }
     private void InitCube()
     {
-        Cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        ControleurCouleur = Cube.AddComponent<ControlleurCouleur>();
-        Cube.transform.position = new Vector3(0, 1, -5);
-        Cube.transform.Rotate(new Vector3(0, 15, 0));
+        DdlCouleur = GetComponentInChildren<Dropdown>();
+        cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        controleurCouleur = cube.AddComponent<ControllerColor>();
+        cube.transform.position = new Vector3(0, 1, -5);
+        cube.transform.Rotate(new Vector3(0, 15, 0));
     }
     private void InitBouton()
     {
@@ -36,11 +32,16 @@ public class GestionnairePersonnaliser : MonoBehaviour
     void Update()
     {
         GestionRotationDuCube();
+        GestionCouleurDuCube();
     }
     private void GestionRotationDuCube()
     {
         float rotation = Input.GetAxis("Horizontal");
-        if (!Mathf.Approximately(rotation, 0))
-            Cube.transform.Rotate(new Vector3(0, rotation, 0));
+        cube.transform.Rotate(new Vector3(0, rotation, 0));
+    }
+    private void GestionCouleurDuCube()
+    {
+        if(DdlCouleur != null)
+            controleurCouleur.ChangerCouleur(CouleurCube[DdlCouleur.value]);
     }
 }

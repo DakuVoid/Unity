@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class GestionnairePersonnaliser : MonoBehaviour
 {
-    GameObject cube { get; set; }
-    ControllerColor controleurCouleur { get; set; }
+    GameObject Cube { get; set; }
+    ControlleurCouleur CtrCouleur { get; set; }
     Dropdown DdlCouleur { get; set; }
     Button boutonMenu { get; set; }
     Color[] CouleurCube { get; set; } = { Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
@@ -15,14 +15,18 @@ public class GestionnairePersonnaliser : MonoBehaviour
     {
         InitCube();
         InitBouton();
+
+        DdlCouleur = GetComponentInChildren<Dropdown>();
+
+        //CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
+        //DdlCouleur.onValueChanged.AddListener(optionSel => CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]));
     }
     private void InitCube()
     {
-        DdlCouleur = GetComponentInChildren<Dropdown>();
-        cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        controleurCouleur = cube.AddComponent<ControllerColor>();
-        cube.transform.position = new Vector3(0, 1, -5);
-        cube.transform.Rotate(new Vector3(0, 15, 0));
+        Cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        CtrCouleur = Cube.AddComponent<ControlleurCouleur>();
+        Cube.transform.position = new Vector3(0, 1, -5);
+        Cube.transform.Rotate(new Vector3(0, 15, 0));
     }
     private void InitBouton()
     {
@@ -37,11 +41,11 @@ public class GestionnairePersonnaliser : MonoBehaviour
     private void GestionRotationDuCube()
     {
         float rotation = Input.GetAxis("Horizontal");
-        cube.transform.Rotate(new Vector3(0, rotation, 0));
+        Cube.transform.Rotate(new Vector3(0, rotation, 0));
     }
     private void GestionCouleurDuCube()
     {
-        if(DdlCouleur != null)
-            controleurCouleur.ChangerCouleur(CouleurCube[DdlCouleur.value]);
+        if (DdlCouleur != null)
+            ControlleurCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
     }
 }

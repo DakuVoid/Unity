@@ -1,25 +1,33 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Video.VideoPlayer;
 
 public class Joueur
 {
-    GameObject j1 = GameObject.Instantiate((GameObject)Resources.Load("Joueur"));
-    GameObject j2 = GameObject.Instantiate((GameObject)Resources.Load("Joueur"));
-    // Start is called before the first frame update
-    void Start()
+    public static readonly Joueur Joueur1 = new Joueur(new Vector2(0,1), Color.blue);
+    public static readonly Joueur Joueur2 = new Joueur(new Vector2(1, 0), Color.red);
+
+    private Vector2 PositionLocale;
+    private Color Couleur;
+
+    public event EventHandler OnPositionChangee;
+    public event EventHandler OnCouleurChangee;
+
+    public Joueur(Vector2 positionLocale, Color couleur)
     {
-        
+            PositionLocale = positionLocale;
+            Couleur = couleur;
+    }
+  
+    public void Deplacer(ref Vector2 positionLocale)
+    {
+        PositionLocale = positionLocale;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangerCouleur(ref Color couleur)
     {
-        
-    }
-
-    void CreatePlayer(ref GameObject gameObject)
-    {
-        gameObject = Instantiate(Resources.Load<GameObject>("Joueur");
+        Couleur = couleur;
     }
 }

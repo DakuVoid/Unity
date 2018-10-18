@@ -8,7 +8,7 @@ public class ControlleurCouleur : MonoBehaviour
 {
     Renderer ImageAChanger { get; set; }
 
-	void Start ()
+	void Awake ()
     {
         ImageAChanger = GetComponent<Renderer>();   		
 	}

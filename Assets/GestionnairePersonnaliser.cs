@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class GestionnairePersonnaliser : MonoBehaviour
 {
     GameObject Cube { get; set; }
-    ControlleurJoueur CtrJoueur { get; set; }
+    ControlleurCouleur CtrCouleur { get; set; }
     Dropdown DdlCouleur { get; set; }
     Button boutonMenu { get; set; }
+    public Color CouleurActuelle { get; set; }
     Color[] CouleurCube { get; set; } = { Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
-    Color CouleurActuelle;
     void Start()
     {
         InitCube();
@@ -21,8 +21,8 @@ public class GestionnairePersonnaliser : MonoBehaviour
 
         CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
         DdlCouleur.onValueChanged.AddListener(optionSel => {
-            couleurActuelle = CouleurCube[optionSel];
-            CtrCouleur.ChangerCouleur(ref CouleurActuelle);
+            CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]);
+            CouleurActuelle = CouleurCube[optionSel];
             }
         );
         

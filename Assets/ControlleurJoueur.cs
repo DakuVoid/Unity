@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ControlleurJoueur : MonoBehaviour
 {
     public Joueur JoueurModel;
+    public Color CouleurActuelle { get; set; }
     public string[] IntrantsManette = { "Horizontal", "Vertical" };
 
     public void SetJoueurModel(Joueur model)

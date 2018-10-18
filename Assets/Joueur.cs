@@ -6,8 +6,8 @@ using static UnityEngine.Video.VideoPlayer;
 
 public class Joueur
 {
-    public static readonly Joueur Joueur1 = new Joueur(new Vector2(0,1), Color.blue);
-    public static readonly Joueur Joueur2 = new Joueur(new Vector2(1, 0), Color.red);
+    public static readonly Joueur Joueur1 = new Joueur(new Vector2(0,0), Color.blue);
+    public static readonly Joueur Joueur2 = new Joueur(new Vector2(0, 0), Color.red);
 
     private Vector2 PositionLocale;
     private Color Couleur;

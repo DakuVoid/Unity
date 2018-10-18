@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GestionnaireJeu : MonoBehaviour
 {
+    GestionnairePersonaliser GestionnairePersonaliser { get; set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -11,6 +13,7 @@ public class GestionnaireJeu : MonoBehaviour
         GameObject Joueur2 = Instantiate(Resources.Load<GameObject>("Joueur"));
         Joueur1.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur1;
         Joueur2.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur2;
+        Joueur1.ChangerCouleur = GestionnairePersonaliser.CouleurActuelle;
     }
 
     // Update is called once per frame

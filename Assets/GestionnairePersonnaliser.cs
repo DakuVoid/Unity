@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class GestionnairePersonnaliser : MonoBehaviour
 {
     GameObject Cube { get; set; }
-    ControlleurCouleur CtrCouleur { get; set; }
+    ControlleurJoueur CtrJoueur { get; set; }
     Dropdown DdlCouleur { get; set; }
     Button boutonMenu { get; set; }
     Color[] CouleurCube { get; set; } = { Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
-    void Start ()
+    Color CouleurActuelle;
+    void Start()
     {
         InitCube();
         InitBouton();
@@ -19,7 +20,12 @@ public class GestionnairePersonnaliser : MonoBehaviour
         DdlCouleur = GetComponentInChildren<Dropdown>();
 
         CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
-        DdlCouleur.onValueChanged.AddListener(optionSel => CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]));
+        DdlCouleur.onValueChanged.AddListener(optionSel => {
+            couleurActuelle = CouleurCube[optionSel];
+            CtrCouleur.ChangerCouleur(ref CouleurActuelle);
+            }
+        );
+        
     }
     private void InitCube()
     {
@@ -36,16 +42,10 @@ public class GestionnairePersonnaliser : MonoBehaviour
     void Update()
     {
         GestionRotationDuCube();
-        //GestionCouleurDuCube();
     }
     private void GestionRotationDuCube()
     {
         float rotation = Input.GetAxis("Horizontal");
         Cube.transform.Rotate(new Vector3(0, rotation, 0));
     }
-    //private void GestionCouleurDuCube()
-    //{
-    //    if (DdlCouleur != null)
-    //        CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
-    //}
 }

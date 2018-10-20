@@ -8,14 +8,14 @@ public class GestionnaireJeu : MonoBehaviour
 {
     ControlleurJoueur CtrJoueur { get; set; }
     ControlleurCouleur CtrCouleur { get; set; }
-    GestionnairePersonnaliser GestPerso { get; set; }
     // Start is called before the first frame update
     void Awake()
     {
         GameObject Joueur1 = Instantiate(Resources.Load<GameObject>("Joueur"));
         Joueur1.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur1;
-        CtrCouleur = Joueur1.AddComponent<ControlleurCouleur>();
-        Color CouleurActuelle = GestPerso.CouleurActuelle;
+        Joueur1.transform.Translate(Joueur.Joueur1.PositionLocale);
+        //CtrCouleur = Joueur1.AddComponent<ControlleurCouleur>();
+        //Color CouleurActuelle = GestPerso.CouleurActuelle;
         //CtrCouleur.ChangerCouleur(ref CouleurActuelle);
 
         GameObject Joueur2 = Instantiate(Resources.Load<GameObject>("Joueur"));

@@ -42,16 +42,12 @@ public class ControlleurJoueur : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float InputX = 0;
-        float InputY = 0;
-
-        InputX = Input.GetAxis(IntrantsManette[0]);
-        InputY = Input.GetAxis(IntrantsManette[1]);
+        var InputX = Input.GetAxis("Horizontal") * Time.deltaTime *150.0f;
+        var InputY = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
 
         if (!Mathf.Approximately(InputX, 0) || !Mathf.Approximately(InputY, 0))
         {
-            Vector2 deplacement = new Vector2(InputX, InputY);
-            JoueurModel.Deplacer(ref deplacement);
+            
         }
     }
 }

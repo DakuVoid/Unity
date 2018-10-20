@@ -1,8 +1,8 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Video.VideoPlayer;
+using System.Linq;
+using System;
 
 public class Joueur
 {
@@ -10,11 +10,10 @@ public class Joueur
     //public event EventHandler OnCouleurChangée
 
 
-    public static readonly Joueur Joueur1 = new Joueur(new Vector3(0,1,0), Color.blue);
-    public static readonly Joueur Joueur2 = new Joueur(new Vector3(0,0,0), Color.red);
+    public static readonly Joueur Joueur1 = new Joueur(new Vector2(1,0), Color.blue);
+    public static readonly Joueur Joueur2 = new Joueur(new Vector2(0,0), Color.red);
 
-    ControlleurCouleur CtrCouleur { get; set; }
-    public Vector3 PositionLocale;
+    public Vector2 PositionLocale;
     public Color Couleur;
 
     public event EventHandler OnPositionChangee;
@@ -22,23 +21,19 @@ public class Joueur
 
     public Joueur(Vector2 positionLocale, Color couleur)
     {
-        //CtrCouleur = this.AddComponent<ControlleurCouleur>();
         PositionLocale = positionLocale;
-        //this.transform.Translate(positionLocale);
         Couleur = couleur;
-        //CtrCouleur.ChangerCouleur(ref couleur);
     }
   
-    public void Deplacer(ref Vector3 positionLocale)
+    public void Deplacer(ref Vector2 positionLocale)
     {
-        PositionLocale = positionLocale;
-        //this.transform.Translate(positionLocale);
-
+        PositionLocale += positionLocale;
+        OnPositionChangee?.Invoke(this, EventArgs.Empty);
     }
 
     public void ChangerCouleur(ref Color couleur)
     {
         Couleur = couleur;
-        //CtrCouleur.ChangerCouleur(ref couleur);
+        OnCouleurChangee?.Invoke(this, EventArgs.Empty);
     }
 }

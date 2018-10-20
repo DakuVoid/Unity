@@ -2,52 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using System;
 
 public class ControlleurJoueur : MonoBehaviour
 {
-    public Joueur JoueurModel;
-    public Color CouleurActuelle { get; set; }
-    public string[] IntrantsManette = { "Horizontal", "Vertical" };
-
-    public void SetJoueurModel(Joueur model)
+    private Joueur joueurModel;
+    public Joueur JoueurModel
     {
-        try
+        get
         {
-            JoueurModel = model;
+            return joueurModel;
         }
-        catch (System.ArgumentNullException e)
+        set
         {
-            Debug.Log("Erreur dans SetJoueurModel" + e.Message.ToString());
+            if (value != null)
+                joueurModel = value;
+            else
+                throw new ArgumentNullException();
         }
     }
 
-    public void SetIntrantsManette(string[] intrants)
+    private string[] intrantsManette;
+    public string[] IntrantsManette
     {
-        try
+        get
         {
-            IntrantsManette = intrants;
+            return intrantsManette;
         }
-        catch (System.ArgumentNullException e)
+        set
         {
-            Debug.Log("Erreur dans SetIntrantsManette" + e.Message.ToString());
+            if (value != null)
+                intrantsManette = value;
+            else
+                throw new ArgumentNullException();
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Vector2 PositionBase = transform.position;
+        JoueurModel.Deplacer(ref PositionBase);
     }
 
     // Update is called once per frame
     void Update()
     {
-        var InputX = Input.GetAxis("Horizontal") * Time.deltaTime *150.0f;
-        var InputY = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+        var InputX = Input.GetAxis(IntrantsManette[0]);
+        var InputY = Input.GetAxis(IntrantsManette[1]);
+        Vector2 Deplacement = new Vector2(InputX, InputY);
 
         if (!Mathf.Approximately(InputX, 0) || !Mathf.Approximately(InputY, 0))
         {
-            
+            joueurModel.Deplacer(ref Deplacement);
+            transform.position = JoueurModel.PositionLocale;
         }
     }
 }

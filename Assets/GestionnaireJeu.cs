@@ -6,33 +6,35 @@ using UnityEngine.UI;
 
 public class GestionnaireJeu : MonoBehaviour
 {
-    ControlleurJoueur CtrJoueur { get; set; }
-    ControlleurCouleur CtrCouleur { get; set; }
     // Start is called before the first frame update
     void Awake()
     {
-        GameObject Joueur1 = Instantiate(Resources.Load<GameObject>("Joueur"));
-        Joueur1.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur1;
-        Joueur1.transform.Translate(Joueur.Joueur1.PositionLocale);
-        //CtrCouleur = Joueur1.AddComponent<ControlleurCouleur>();
-        //Color CouleurActuelle = GestPerso.CouleurActuelle;
-        //CtrCouleur.ChangerCouleur(ref CouleurActuelle);
+        //JOUEUR 1
+            GameObject Joueur1 = Instantiate(Resources.Load<GameObject>("Joueur"));
+            Joueur1.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur1;
+  
+            //Mouvement
+            string[] IntrantsJoueur1 = { "Horizontal", "Vertical" };
+            Joueur1.GetComponent<ControlleurJoueur>().IntrantsManette = IntrantsJoueur1;
+            Joueur1.transform.position = new Vector3(0, 1, 0);
 
-        GameObject Joueur2 = Instantiate(Resources.Load<GameObject>("Joueur"));
-        Joueur2.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur2;
-      
-    }
+            //Couleur
+            Color CouleurJoueur1 = Joueur.Joueur1.Couleur;
+            Joueur1.GetComponentInChildren<ControlleurCouleur>().ChangerCouleur(ref CouleurJoueur1);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    GameObject CreatePlayer()
-    {
-        GameObject gameObject = new GameObject();
-        gameObject = Instantiate(Resources.Load<GameObject>("Joueur"));
-        return gameObject;
+
+        //JOUEUR 2
+            GameObject Joueur2 = Instantiate(Resources.Load<GameObject>("Joueur"));
+            Joueur2.GetComponent<ControlleurJoueur>().JoueurModel = Joueur.Joueur2;
+
+            //Mouvement
+            string[] IntrantsJoueur2 = { "HorizontalManette", "VerticalManette" };
+            Joueur2.GetComponent<ControlleurJoueur>().IntrantsManette = IntrantsJoueur2;
+            Joueur2.transform.position = new Vector3(0, 0, 0);
+
+            //Couleur
+            Color CouleurJoueur2 = Joueur.Joueur2.Couleur;
+            Joueur2.GetComponentInChildren<ControlleurCouleur>().ChangerCouleur(ref CouleurJoueur2);
     }
 }

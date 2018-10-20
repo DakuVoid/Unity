@@ -9,8 +9,7 @@ public class GestionnairePersonnaliser : MonoBehaviour
     GameObject Cube { get; set; }
     ControlleurCouleur CtrCouleur { get; set; }
     Dropdown DdlCouleur { get; set; }
-    Button boutonMenu { get; set; }
-    public Color CouleurActuelle { get; set; }
+    Button BoutonMenu { get; set; }
     Color[] CouleurCube { get; set; } = { Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
     void Start()
     {
@@ -20,12 +19,8 @@ public class GestionnairePersonnaliser : MonoBehaviour
         DdlCouleur = GetComponentInChildren<Dropdown>();
 
         CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
-        DdlCouleur.onValueChanged.AddListener(optionSel => {
-            CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]);
-            CouleurActuelle = CouleurCube[optionSel];
-            }
-        );
-        
+        DdlCouleur.onValueChanged.AddListener(optionSel => CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]));
+
     }
     private void InitCube()
     {
@@ -36,8 +31,8 @@ public class GestionnairePersonnaliser : MonoBehaviour
     }
     private void InitBouton()
     {
-        boutonMenu = GetComponentInChildren<Button>();
-        boutonMenu.onClick.AddListener(() => SceneManager.LoadScene(0));
+        BoutonMenu = GetComponentInChildren<Button>();
+        BoutonMenu.onClick.AddListener(() => SceneManager.LoadScene(0));
     }
     void Update()
     {

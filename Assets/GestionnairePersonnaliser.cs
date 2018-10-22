@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,6 +11,21 @@ public class GestionnairePersonnaliser : MonoBehaviour
     ControlleurCouleur CtrCouleur { get; set; }
     Dropdown DdlCouleur { get; set; }
     Button BoutonMenu { get; set; }
+    private static Color couleurActuelle = Color.cyan;
+    public Color CouleurActuelle
+    {
+        get
+        {
+            return couleurActuelle;
+        }
+        set
+        {
+            if (value != null)
+                couleurActuelle = value;
+            else
+                throw new ArgumentNullException();
+        }
+    }
     Color[] CouleurCube { get; set; } = { Color.cyan, Color.yellow, Color.magenta, Color.black, Color.white };
     void Start()
     {
@@ -19,7 +35,11 @@ public class GestionnairePersonnaliser : MonoBehaviour
         DdlCouleur = GetComponentInChildren<Dropdown>();
 
         CtrCouleur.ChangerCouleur(ref CouleurCube[DdlCouleur.value]);
-        DdlCouleur.onValueChanged.AddListener(optionSel => CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]));
+        DdlCouleur.onValueChanged.AddListener(optionSel =>
+        {
+            CouleurActuelle = CouleurCube[optionSel];
+            CtrCouleur.ChangerCouleur(ref CouleurCube[optionSel]);     
+        });
 
     }
     private void InitCube()
@@ -43,4 +63,6 @@ public class GestionnairePersonnaliser : MonoBehaviour
         float rotation = Input.GetAxis("Horizontal");
         Cube.transform.Rotate(new Vector3(0, rotation, 0));
     }
+
+    
 }
